@@ -87,7 +87,6 @@ predict(model.2,newdata,interval ="prediction" )
 ```
 ```
 
-
 # now add the model fit to our plot
   
 ```{r}
@@ -113,9 +112,11 @@ The equation for SIMS explained by ARM+GRIP is SIMS -5.4 + .0373 * ARM + 0.024*G
 # Conclusion on data
 
 The bigger the r-squared value is the more there is reduction in error. The purpose of these models is to get the smallest amount of error we can get.The best model was model 3 according to the method of measurement in r-squared. 
-# Run Nova test to make sure conclusion is accurate
+
+# Run anova test to make sure conclusion is accurate
 ```{r}
 anova(model.1,model.3)
 ```
 
+According to the anova th pvalue is .0000049 which is super small therefore with these results we reject the null hypothesis and conclude that Model 3 is the best to use.  
 
