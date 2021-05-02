@@ -23,21 +23,23 @@ require(knitr)
 
 ```
 
+
 ```{r}
 data <- read.csv(file="https://onlinestatbook.com/case_studies_rvls/physical_strength/data.txt",sep="",header=TRUE)  
 
 
 ```
 
+
 ```{r}
 basicNN <- ggplot(data,aes(y=SIMS,x=ARM))
 ```
+
 ##Now add in scatterplot
 
 ```{r}
 basicNN + geom_point()
 ```
-  
 # Numerical results
 
 ```{r}
@@ -50,11 +52,14 @@ cor(SIMS~ARM,data=data)
 model.1 <- lm(SIMS~ARM,data=data)
 summary.lm(model.1)
 ```
+
+This data shows the residual standard error of 1:226 and adjusted R-squared value of 0.467.
+
 ```{r}
-newdata=data.frame(GRIP=94,ARM=88)
+newdata=data.frame(ARM=88)
 predict(model.1,newdata,interval ="prediction" )
 ```
-
+This data shows the 95% prediction rate of ARM at the value of 88 which is 0.706.
 
 # now add the model fit to our plot
   
@@ -67,6 +72,7 @@ The equation for SIMS explained by ARM is SIMS -4.1 + .0545*ARM
 ```{r}
 basicGG<- ggplot(data,aes(y=SIMS,x=GRIP))
 ```
+
 ##Now add in scatterplot
 
 ```{r}
@@ -83,9 +89,16 @@ cor(SIMS~GRIP,data=data)
 ```{r}
 model.2 <- lm(SIMS~GRIP,data=data)
 summary.lm(model.2)
+```
+
+This data shows the residual standard error of 1:226 and adjusted R-squared value of 0.467.
+
+```{r}
+newdata=data.frame(GRIP=94)
 predict(model.2,newdata,interval ="prediction" )
 ```
-```
+
+This data shows the 95% prediction rate of a GRIP at the value of 94 which is -0.536.
 
 # now add the model fit to our plot
   
@@ -104,10 +117,17 @@ basicNN <- ggplot(data,aes(y=SIMS,x=ARM+GRIP))
 ```{r}
 model.3 <- lm(SIMS~ARM+GRIP,data=data)
 summary.lm(model.3)
-predict(model.3,newdata,interval ="prediction" )
 ```
 
 The equation for SIMS explained by ARM+GRIP is SIMS -5.4 + .0373 * ARM + 0.024*GRIP
+
+ 
+```{r}
+newdata=data.frame(GRIP=94,ARM=88)
+predict(model.3,newdata,interval ="prediction" )
+```
+
+This data shows the 95% prediction rate of a GRIP(94) and ARM(88) which is 0.150.
 
 # Conclusion on data
 
@@ -118,5 +138,5 @@ The bigger the r-squared value is the more there is reduction in error. The purp
 anova(model.1,model.3)
 ```
 
-According to the anova th pvalue is .0000049 which is super small therefore with these results we reject the null hypothesis and conclude that Model 3 is the best to use.  
+According to the anova th p value is .0000049 which is super small therefore with these results we reject the null hypothesis and conclude that Model 3 is the best to use.  
 
